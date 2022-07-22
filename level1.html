@@ -1,0 +1,54 @@
+<html>
+    <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+    <!-- we import arjs version without NFT but with marker + location based support -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script> 
+   <script> AFRAME.registerComponent('videohandler', {
+        init: function () {
+          this.toggle = false;
+          document.querySelector("#video").pause(); //reference to the video
+        },
+        tick:function(){  
+         if(document.querySelector("a-marker").object3D.visible == true){
+           if(!this.toggle){
+             this.toggle = true;
+             document.querySelector("#video").play();
+           }
+         }else{
+           this.toggle = false;
+           document.querySelector("#video").pause();
+         }
+        }
+      });
+      </script>
+      <head>
+    <title>Hope to see you there</title>
+</head>
+
+<body id="body"
+    style="background-color: rgb(0, 0, 0); margin-right: 0px; margin-bottom: 0px; margin-left: 0px; overflow: hidden; width: 770px; height: 480px;">
+    <a-scene embedded="" arjs="trackingMethod: best; sourceType: webcam"
+        device-orientation-permission-ui="enabled: false" loading-screen="enabled: false" vr-mode-ui="enabled: false"
+        inspector="" keyboard-shortcuts="" screenshot="">
+        <a-assets>
+            <video id="video" src="assets/video.mp4" preload="auto" response-type="arraybuffer" crossorigin="anonymous"
+                webkit-playsinline="" autoplay="" playsinline=""></video>
+        </a-assets>
+        <a-marker preset="hiro" videohandler="" smooth="true" smoothcount="2" smoothtolerance="0.01" smooththreshold="2"
+            material="" arjs-anchor="" arjs-hit-testing="">
+            <a-video src="#video" width="5" height="5" scale="1 1 1" position="0 0 0" rotation="-90 0 0"
+                material="" geometry=""></a-video>
+        </a-marker>
+        <a-entity camera=""></a-entity>
+        <canvas class="a-canvas" data-aframe-canvas="true" width="962" height="600"></canvas>
+        <a-entity light="" data-aframe-default-light="" aframe-injected=""></a-entity>
+        <a-entity light="" position="" data-aframe-default-light="" aframe-injected=""></a-entity>
+    </a-scene>
+    <div
+        style="position: fixed; bottom: 10px; right: 10px; max-width:150px; text-align: center; z-index: 1;color: #fff; font-family: Arial, Helvetica, sans-serif;">
+        <b>Give camera permission, point your device's camera at the QR Code. And click on screen.</b>
+    </div>
+
+
+</body>
+
+</html>
